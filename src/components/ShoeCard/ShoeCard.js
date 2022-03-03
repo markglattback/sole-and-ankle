@@ -1,3 +1,4 @@
+import { max } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components/macro';
 
@@ -44,35 +45,67 @@ const ShoeCard = ({
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+		  {variant === 'on-sale' && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
+		{variant !== 'default' && <Flag variant={variant}>{ variant === 'on-sale' ? 'Sale' : 'Just released!' }</Flag>}
       </Wrapper>
+	
     </Link>
   );
 };
 
 const Link = styled.a`
-  text-decoration: none;
-  color: inherit;
+	text-decoration: none;
+	color: inherit;
+	min-width: 320px;
+	flex: 1;
+
+
+	/* width: 25%;
+
+	@media screen and (max-width: 1440px) {
+		width: calc(100% / 3);
+	}
+
+	@media screen and (max-width: 1024px) {
+		width: 50%;
+	} */
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+	position: relative;
+	margin: 0 16px 64px;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
+  width: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  overflow: hidden;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+	width: 100%;
+	height: auto;
+`;
 
 const Row = styled.div`
-  font-size: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+  	font-size: 1rem;
 `;
 
 const Name = styled.h3`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.gray[900]};
+  margin-right: 24px;
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+	align-self: flex-start;
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
@@ -81,6 +114,20 @@ const ColorInfo = styled.p`
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
+`;
+
+const Flag = styled.span`
+	position: absolute;
+	top: 12px;
+	right: -4px;
+	display: flex;
+	align-items: center;
+	height: 32px;
+	padding: 0 10px;
+	background: ${p => p.variant === 'on-sale' ? COLORS.primary : COLORS.secondary};
+	font-weight: ${WEIGHTS.medium};
+	color: white;
+	border-radius: 2px;
 `;
 
 export default ShoeCard;
