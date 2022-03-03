@@ -28,11 +28,11 @@ const Header = () => {
 };
 
 const MainHeader = styled.div`
-  padding: 0 32px;
+  padding: 18px 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
   height: 72px;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 `;
 
 const Nav = styled.nav`
